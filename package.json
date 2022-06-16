@@ -5,7 +5,9 @@
     "build": "tsc",
     "dev": "ts-node-dev -r dotenv/config --no-notify --respawn --transpile-only ./src/index.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "class-validator": "^0.13.2"
+  },
   "devDependencies": {
     "@types/node": "^14.14.37",
     "dotenv": "^8.6.0",
