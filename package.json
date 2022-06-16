@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "class-transformer-validator": "^0.9.1",
-    "class-validator": "^0.13.2"
+    "class-validator": "^0.13.2",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/node": "^14.14.37",

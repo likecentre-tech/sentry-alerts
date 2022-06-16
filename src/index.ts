@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { transformAndValidate } from 'class-transformer-validator';
 import { YC } from './yc';
 // import config from './config';
