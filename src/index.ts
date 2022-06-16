@@ -1,14 +1,17 @@
+import 'reflect-metadata';
+import { plainToInstance } from 'class-transformer';
 import { YC } from './yc';
 // import config from './config';
 import SentryWebhook from './models/SentryWebhook';
 
 export async function handler(event: YC.CloudFunctionsHttpEvent) {
-  // const qs = Buffer.from((event.body) as 'base64', 'base64').toString();
-  // const params = Object.fromEntries(new URLSearchParams(qs));
-
   console.log(event.body);
 
-  console.log(new SentryWebhook(event.body))
+  if (event.body) {
+    const sentryWebhook = plainToInstance(SentryWebhook, JSON.parse(event.body))
+
+    console.log(sentryWebhook)
+  }
 
   return {
     statusCode: 200,
