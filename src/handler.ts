@@ -38,18 +38,12 @@ class Handler {
 
             console.log(response.data);
         } catch (error) {
-            console.error(error);
+            console.error((error as any).data);
         }
     }
 
     static getMessageText(webhook: SentryWebhook): string {
-        return this.escapedCharacters(`
-            *${webhook.project}*
-            ${this.capitalizeFirstLetter(webhook.event.environment)}
-            ${this.capitalizeFirstLetter(webhook.level)}
-            ${webhook.message}
-            [Issue](${webhook.url})`
-        );
+        return this.escapedCharacters(`*${webhook.project}*\n${this.capitalizeFirstLetter(webhook.event.environment)}\n${this.capitalizeFirstLetter(webhook.level)}\n${webhook.message}\n[Issue](${webhook.url})`);
     }
 
     static capitalizeFirstLetter(str: string) {
@@ -58,24 +52,24 @@ class Handler {
 
     static escapedCharacters(str: string) {
         return str
-            .replace(/\_/g, '\_')
-            .replace(/\*/g, '\*')
-            .replace(/\[/g, '\[')
-            .replace(/\]/g, '\]')
-            .replace(/\(/g, '\(')
-            .replace(/\)/g, '\)')
-            .replace(/\~/g, '\~')
-            .replace(/\`/g, '\`')
-            .replace(/\>/g, '\>')
-            .replace(/\#/g, '\#')
-            .replace(/\+/g, '\+')
-            .replace(/\-/g, '\-')
-            .replace(/\=/g, '\=')
-            .replace(/\|/g, '\|')
-            .replace(/\{/g, '\{')
-            .replace(/\}/g, '\}')
-            .replace(/\./g, '\.')
-            .replace(/\!/g, '\!');
+            .replace(/\_/g, '\\_')
+            .replace(/\*/g, '\\*')
+            .replace(/\[/g, '\\[')
+            .replace(/\]/g, '\\]')
+            .replace(/\(/g, '\\(')
+            .replace(/\)/g, '\\)')
+            .replace(/\~/g, '\\~')
+            .replace(/\`/g, '\\`')
+            .replace(/\>/g, '\\>')
+            .replace(/\#/g, '\\#')
+            .replace(/\+/g, '\\+')
+            .replace(/\-/g, '\\-')
+            .replace(/\=/g, '\\=')
+            .replace(/\|/g, '\\|')
+            .replace(/\{/g, '\\{')
+            .replace(/\}/g, '\\}')
+            .replace(/\./g, '\\.')
+            .replace(/\!/g, '\\!');
     }
 }
 
