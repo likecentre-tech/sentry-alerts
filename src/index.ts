@@ -1,5 +1,4 @@
-import 'reflect-metadata';
-import { plainToInstance } from 'class-transformer';
+import { transformAndValidate } from 'class-transformer-validator';
 import { YC } from './yc';
 // import config from './config';
 import SentryWebhook from './models/SentryWebhook';
@@ -8,9 +7,13 @@ export async function handler(event: YC.CloudFunctionsHttpEvent) {
   console.log(event.body);
 
   if (event.body) {
-    const sentryWebhook = plainToInstance(SentryWebhook, JSON.parse(event.body))
-
-    console.log(sentryWebhook)
+    try {
+      const sentryWebhook = await transformAndValidate(SentryWebhook, event.body);
+      console.log(sentryWebhook)
+    } catch (err) {
+      // your error handling
+      console.error(err);
+    }
   }
 
   return {
