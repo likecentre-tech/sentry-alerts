@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { marked } from 'marked'
 import config from './config';
 import { plainToInstance } from 'class-transformer';
 import SentryWebhook from './models/SentryWebhook';
