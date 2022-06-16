@@ -15,7 +15,7 @@ class Handler {
     }
 
     static getSentryWebhook(body: string): SentryWebhook {
-        return plainToInstance(SentryWebhook, body, { excludeExtraneousValues: true });
+        return plainToInstance(SentryWebhook, JSON.parse(body), { excludeExtraneousValues: true });
     }
 
     static async sendMessage(text: string, chat_id = null) {
