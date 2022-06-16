@@ -1,0 +1,16 @@
+{
+  "name": "sentry-alerts",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev -r dotenv/config --no-notify --respawn --transpile-only ./src/index.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "dotenv": "^8.6.0",
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "1.1.6",
+    "typescript": "^4.2.3"
+  }
+}
