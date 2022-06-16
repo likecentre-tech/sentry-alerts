@@ -28,6 +28,7 @@ class Handler {
             const response = await axios.get(`https://api.telegram.org/bot${config.botToken}/sendMessage`, {
                 params: {
                     chat_id: chat_id || config.chatId,
+                    parse_mode: 'MarkdownV2',
                     text,
                 }
             })
@@ -39,7 +40,11 @@ class Handler {
     }
 
     static getMessageText(webhook: SentryWebhook): string {
-        return `[${webhook.project}, ${webhook.level}, ${webhook.event.environment}]: ${webhook.message}. [Issue](${webhook.url})`;
+        return `${this.capitalizeFirstLetter(webhook.level)}: [${webhook.project} ${this.capitalizeFirstLetter(webhook.event.environment)}]: ${webhook.message}. [Issue](${webhook.url})`;
+    }
+
+    static capitalizeFirstLetter(str: string) {
+        return str.charAt(0).toUpperCase() + str.slice(1);;
     }
 }
 
