@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { marked } from 'marked'
 import config from './config';
 import { plainToInstance } from 'class-transformer';
 import SentryWebhook from './models/SentryWebhook';
@@ -28,7 +29,6 @@ class Handler {
             const response = await axios.get(`https://api.telegram.org/bot${config.botToken}/sendMessage`, {
                 params: {
                     chat_id: chat_id || config.chatId,
-                    parse_mode: 'MarkdownV2',
                     text,
                 }
             })
@@ -40,7 +40,9 @@ class Handler {
     }
 
     static getMessageText(webhook: SentryWebhook): string {
-        return `${this.capitalizeFirstLetter(webhook.level)}: [${webhook.project} ${this.capitalizeFirstLetter(webhook.event.environment)}]: ${webhook.message}. [Issue](${webhook.url})`;
+        return marked.parseInline(
+            `${this.capitalizeFirstLetter(webhook.level)}: [${webhook.project} ${this.capitalizeFirstLetter(webhook.event.environment)}]: ${webhook.message}. [Issue](${webhook.url})`
+        );
     }
 
     static capitalizeFirstLetter(str: string) {
