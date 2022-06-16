@@ -4,4 +4,4 @@ node_modules
 build.zip
 build
 dist
-sample_event.json
+src/sample_event.json

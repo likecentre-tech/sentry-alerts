@@ -1,9 +1,14 @@
 export interface Config {
-  // googleServiceAccountEmail: string;
+  botToken: string;
+  chatId: string;
 }
 
-// const googleServiceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || '';
+const botToken = process.env.BOT_API_KEY || '';
+const chatId = process.env.CHAT_ID || '';
 
-const config: Config = {};
+const config: Config = {
+  botToken,
+  chatId,
+};
 
 export default config;

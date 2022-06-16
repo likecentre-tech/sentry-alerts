@@ -1,23 +1,9 @@
 import 'reflect-metadata';
-// import { transformAndValidate, ClassType } from 'class-transformer-validator';
-import { plainToInstance } from 'class-transformer';
 import { YC } from './yc';
-// import config from './config';
-import SentryWebhook from './models/SentryWebhook';
+import Handler from './handler';
 
 export async function handler(event: YC.CloudFunctionsHttpEvent) {
-  console.log(event.body);
-
-  if (event.body) {
-    try {
-      const sentryWebhook = plainToInstance(SentryWebhook, event.body, { excludeExtraneousValues: true });
-      // const sentryWebhook = await transformAndValidate(SentryWebhook, event.body, { transformer: { excludeExtraneousValues: true } });
-      console.log(JSON.stringify(sentryWebhook))
-    } catch (err) {
-      // your error handling
-      console.error(err);
-    }
-  }
+  await Handler.process(event.body || '{}')
 
   return {
     statusCode: 200,

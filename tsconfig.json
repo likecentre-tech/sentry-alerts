@@ -2,6 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "module": "commonjs",
     "target": "es2018",
