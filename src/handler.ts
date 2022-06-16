@@ -43,7 +43,7 @@ class Handler {
     }
 
     static getMessageText(webhook: SentryWebhook): string {
-        return (`Project: *${this.escaped(webhook.project)}*\nEnvironment: ${this.capitalizeFirstLetter(webhook.event.environment)}\nLevel: ${this.capitalizeFirstLetter(webhook.level)}\n${this.escaped(webhook.message)}\n[Issue](${webhook.url})`);
+        return (`Project: *${this.escaped(webhook.project)}*\nEnvironment: *${this.capitalizeFirstLetter(webhook.event.environment)}*\nLevel: *${this.capitalizeFirstLetter(webhook.level)}*\n${this.escaped(webhook.message)}\n[Issue](${webhook.url})`);
     }
 
     static capitalizeFirstLetter(str: string) {
