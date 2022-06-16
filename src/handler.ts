@@ -28,7 +28,6 @@ class Handler {
             const response = await axios.get(`https://api.telegram.org/bot${config.botToken}/sendMessage`, {
                 params: {
                     parse_mode: 'MarkdownV2',
-                    disable_notification: true,
                     disable_web_page_preview: true,
                     chat_id: chat_id || config.chatId,
                     text,
