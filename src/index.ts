@@ -9,8 +9,8 @@ export async function handler(event: YC.CloudFunctionsHttpEvent) {
 
   if (event.body) {
     try {
-      const sentryWebhook = await transformAndValidate(SentryWebhook, event.body);
-      console.log(sentryWebhook)
+      const sentryWebhook = await transformAndValidate(SentryWebhook, event.body, { transformer: { excludeExtraneousValues: true } });
+      console.log(JSON.stringify(sentryWebhook))
     } catch (err) {
       // your error handling
       console.error(err);
