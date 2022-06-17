@@ -6,7 +6,7 @@ import SentryWebhook from './models/SentryWebhook';
 class Handler {
     static async process(body: string) {
         try {
-            console.log(JSON.stringify({ body }))
+            console.log(body)
 
             const sentryWebhook = this.getSentryWebhook(body)
             await this.sendMessage(this.getMessageText(sentryWebhook));
