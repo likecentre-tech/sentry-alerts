@@ -1,5 +1,6 @@
 import { Type, Expose } from 'class-transformer';
 import Event from './Event';
+import Metadata from './Metadata';
 
 export default class SentryWebhook {
     @Expose()
@@ -20,4 +21,8 @@ export default class SentryWebhook {
     @Expose()
     @Type(() => Event)
     event: Event;
+
+    @Expose()
+    @Type(() => Metadata)
+    metadata: Metadata;
 }

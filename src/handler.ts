@@ -3,6 +3,11 @@ import config from './config';
 import { plainToInstance } from 'class-transformer';
 import SentryWebhook from './models/SentryWebhook';
 
+interface MessageItem {
+    label: string | null;
+    value: string;
+}
+
 class Handler {
     static async process(body: string) {
         try {
@@ -22,11 +27,6 @@ class Handler {
 
     static async sendMessage(text: string, chat_id = null) {
         try {
-            console.log({
-                chat_id: chat_id || config.chatId,
-                text
-            });
-
             const response = await axios.get(`https://api.telegram.org/bot${config.botToken}/sendMessage`, {
                 params: {
                     parse_mode: 'MarkdownV2',
@@ -36,19 +36,53 @@ class Handler {
                 }
             })
 
-            console.log(response.data);
+            console.log(JSON.stringify(response.data));
         } catch (error) {
             console.error((error as any).data);
         }
     }
 
     static getMessageText(webhook: SentryWebhook): string {
-        return (`Project: *${this.escaped(webhook.project)}*\nEnvironment: *${this.capitalizeFirstLetter(webhook.event.environment)}*\nLevel: *${this.capitalizeFirstLetter(webhook.level)}*\n${this.escaped(webhook.message)}\n[Issue](${webhook.url})`);
+        const messageItems: MessageItem[] = this.getMessageItems(webhook);
+
+        const formattedItems = this.formatMessageItems(messageItems)
+
+        return formattedItems.filter(Boolean).join('\n');
+    }
+
+    static getMessageItems(webhook: SentryWebhook): MessageItem[] {
+        return [
+            {
+                label: 'Project',
+                value: this.escaped(webhook.project)
+            },
+            {
+                label: 'Environment',
+                value: this.capitalizeFirstLetter(webhook.event.environment)
+            },
+            {
+                label: 'Level',
+                value: this.capitalizeFirstLetter(webhook.level)
+            },
+            {
+                label: null,
+                value: this.escaped(webhook.metadata.type)
+            },
+            {
+                label: null,
+                value: this.escaped(webhook.message) || this.escaped(webhook.metadata.value)
+            },
+            {
+                label: null,
+                value: `[Issue](${webhook.url})`
+            }
+        ]
     }
 
     static capitalizeFirstLetter(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
 
     static escaped(str: string) {
         return str
@@ -70,6 +104,16 @@ class Handler {
             .replace(/\}/g, '\\}')
             .replace(/\./g, '\\.')
             .replace(/\!/g, '\\!');
+    }
+
+    static formatMessageItems(data: MessageItem[]) {
+        return data.map(item => {
+            if (item.label) {
+                return `${item.label}: *${item.value}*`
+            }
+
+            return item.value;
+        })
     }
 }
 
