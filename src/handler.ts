@@ -66,7 +66,7 @@ class Handler {
             },
             {
                 label: null,
-                value: this.escaped(webhook.metadata.type)
+                value: this.escaped(webhook.metadata?.type || webhook.metadata?.title || '')
             },
             {
                 label: null,

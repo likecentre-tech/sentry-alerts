@@ -8,7 +8,10 @@ export default class Metadata {
     function: string;
 
     @Expose()
-    type: string;
+    type?: string;
+
+    @Expose()
+    title?: string;
 
     @Expose()
     value: string;
