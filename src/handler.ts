@@ -66,11 +66,11 @@ class Handler {
             },
             {
                 label: null,
-                value: this.escaped(webhook.metadata?.type || webhook.metadata?.title || '')
+                value: this.escaped(webhook?.metadata?.type || webhook?.metadata?.title || '')
             },
             {
                 label: null,
-                value: this.escaped(webhook.message) || this.escaped(webhook.metadata.value)
+                value: this.escaped(webhook.message) || this.escaped(webhook?.metadata?.value) || ''
             },
             {
                 label: null,
