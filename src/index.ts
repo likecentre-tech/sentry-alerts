@@ -3,7 +3,7 @@ import { YC } from './yc';
 import Handler from './handler';
 
 export async function handler(event: YC.CloudFunctionsHttpEvent) {
-  await Handler.process(event.body || '{}')
+  await Handler.process(event.body)
 
   return {
     statusCode: 200,
