@@ -89,6 +89,10 @@ class Handler {
 
 
     static escaped(str: string) {
+        if (!str) {
+            return null;
+        }
+
         return str
             .replace(/\_/g, '\\_')
             .replace(/\*/g, '\\*')
