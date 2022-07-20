@@ -9,12 +9,14 @@ interface MessageItem {
 }
 
 class Handler {
-    static async process(body: string) {
+    static async process(body: string | undefined) {
         try {
-            console.log(body)
+            if (body) {
+                console.log(body)
 
-            const sentryWebhook = this.getSentryWebhook(body)
-            await this.sendMessage(this.getMessageText(sentryWebhook));
+                const sentryWebhook = this.getSentryWebhook(body)
+                await this.sendMessage(this.getMessageText(sentryWebhook));
+            }
         } catch (err) {
             // your error handling
             console.error(err);
@@ -89,10 +91,6 @@ class Handler {
 
 
     static escaped(str: string) {
-        if (!str) {
-            return '';
-        }
-
         return str
             .replace(/\_/g, '\\_')
             .replace(/\*/g, '\\*')
