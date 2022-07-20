@@ -90,7 +90,7 @@ class Handler {
 
     static escaped(str: string) {
         if (!str) {
-            return null;
+            return '';
         }
 
         return str
