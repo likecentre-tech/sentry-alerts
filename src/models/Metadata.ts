@@ -11,9 +11,6 @@ export default class Metadata {
     type?: string;
 
     @Expose()
-    title?: string;
-
-    @Expose()
     value: string;
 }
 

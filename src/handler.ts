@@ -12,8 +12,6 @@ class Handler {
     static async process(body: string | undefined) {
         try {
             if (body) {
-                console.log(body)
-
                 const sentryWebhook = this.getSentryWebhook(body)
                 await this.sendMessage(this.getMessageText(sentryWebhook));
             }
@@ -53,10 +51,6 @@ class Handler {
     }
 
     static getMessageItems(webhook: SentryWebhook): MessageItem[] {
-        console.log({
-            metadata: webhook?.metadata
-        });
-
         return [
             {
                 label: 'Project',
@@ -71,12 +65,12 @@ class Handler {
                 value: this.capitalizeFirstLetter(webhook.level)
             },
             {
-                label: null,
-                value: this.escaped(webhook?.metadata?.type || webhook?.metadata?.title || '')
+                label: 'Culprit',
+                value: this.escaped(webhook?.event.culprit || webhook?.event?.title || webhook?.event.metadata?.type || '')
             },
             {
-                label: null,
-                value: this.escaped(webhook.message || '') || this.escaped(webhook?.metadata?.value || '') || ''
+                label: 'Context',
+                value: this.escaped(webhook.message || webhook?.event?.metadata?.value || '')
             },
             {
                 label: null,

@@ -1,8 +1,15 @@
-import { Expose } from 'class-transformer';
+import { Type, Expose } from 'class-transformer';
+import Metadata from './Metadata';
 
 export default class Event {
     @Expose()
     event_id: string;
+
+    @Expose()
+    culprit?: string;
+
+    @Expose()
+    title?: string;
 
     @Expose()
     platform: string;
@@ -12,4 +19,8 @@ export default class Event {
 
     @Expose()
     timestamp: string;
+
+    @Expose()
+    @Type(() => Metadata)
+    metadata: Metadata;
 }
